@@ -12,11 +12,15 @@
     text-align: center;
     padding: 12px 0;
     color: #1F232E;
+    font-family: 'IBM Plex Mono', serif;
+    font-weight: 400;
 }
 
 .table .table__head .table__cell {
     padding: 16px 0;
     color: #7B8395;
+    font-family: 'IBM Plex Mono', serif;
+    font-weight: 600;
 }
 
 .table .table__cell.table__cell_clickable {
@@ -34,7 +38,7 @@
 }
 
 .table .table__cell.table__cell_sortable.table__cell_sortable_desc {
-    background-image: url("./sort-desc.svg");
+    background-image: url("sort-desc.svg");
 }
 
 .table .table__cell.table__cell_sortable.table__cell_sortable_asc {
