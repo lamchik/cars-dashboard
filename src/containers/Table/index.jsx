@@ -3,7 +3,8 @@ import {getCarsTable} from '../../api/cars'
 import Search from "../../components/Search"
 import CarsTable from '../../components/Table'
 import Result from '../../components/Result'
-import Preloader from '../../components/Preloader'
+import Preloader from '../../components/ui/Preloader'
+import Error from '../../components/ui/Error'
 
 import "./styles.css"
 
@@ -18,10 +19,16 @@ const getCarLabel = (car, tariff) => {
 
 const Table = () => {
   const [search, setSearch] = useState(undefined)
+
+  // data state for API request
   const [dataState, setDataState] = useState(DATA_STATE_IDLE)
+  // error for API request
+  const [error, setError] = useState("")
+
   const [cars, setCars] = useState([]);
   const [tariffs, setTariffs] = useState([]);
   const [sortOrder, setSortOrder] = useState(1);
+
   const [chosenCarLabel, setChosenCarLabel] = useState(undefined);
 
   useEffect(() => {
@@ -38,7 +45,7 @@ const Table = () => {
     fetchData().catch((err) => {
       // we encountered an error
       setDataState(DATA_STATE_ERROR)
-      console.error(err)
+      setError(err)
     })
   }, [])
 
@@ -57,22 +64,38 @@ const Table = () => {
     setChosenCarLabel(getCarLabel(car, tariff))
   }
 
+  const renderContent = () => {
+    if (dataState === DATA_STATE_IDLE || dataState === DATA_STATE_LOADING) {
+      return <div className="preloader-wrapper"><Preloader /></div>
+    }
+
+    if (dataState === DATA_STATE_LOADED) {
+      return (
+        <CarsTable
+          cars={cars}
+          tariffs={tariffs}
+          sortOrderDesc={sortOrder}
+          changeSortOrder={changeSortOrder}
+          searchQuery={search}
+          chooseCar={chooseCar}
+        />
+      )
+    }
+
+    if (dataState === DATA_STATE_ERROR) {
+      return <Error error={error} />
+    }
+
+    console.error("Illegal place")
+  }
+
   return (
     <div>
       <div className="content-wrapper">
         <Search onSubmit={onSearchHandler} />
       </div>
       <div className="content-wrapper">
-        {dataState === DATA_STATE_LOADED ? (
-          <CarsTable
-            cars={cars}
-            tariffs={tariffs}
-            sortOrderDesc={sortOrder}
-            changeSortOrder={changeSortOrder}
-            searchQuery={search}
-            chooseCar={chooseCar}
-          />
-        ) : <Preloader />}
+        {renderContent()}
       </div>
       {chosenCarLabel && <Result text={chosenCarLabel} /> }
     </div>

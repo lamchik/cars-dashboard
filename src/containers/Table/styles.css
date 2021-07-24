@@ -1,3 +1,9 @@
 .content-wrapper {
     margin-bottom: 16px;
 }
+
+.preloader-wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}

@@ -1,8 +1,9 @@
 import React from 'react'
+import './styles.css'
 
 const Preloader = () => {
   return (
-    <div>Loading</div>
+    <div className="preloader"/>
   )
 }
 
