@@ -4,7 +4,9 @@ import './styles.css'
 const SideBar = () => {
   return (
     <aside className="sidebar">
-      <p>Sidebar</p>
+      <div className="sidebar__sticky-wrapper">
+        <p>Sidebar</p>
+      </div>
     </aside>
   )
 }
