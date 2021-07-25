@@ -8,7 +8,7 @@ const getCarLabel = (car) => {
 const Table = ({
  cars,
  tariffs,
- sortOrderDesc,
+ sortOrder,
  changeSortOrder,
  searchQuery,
  chooseCar,
@@ -18,8 +18,8 @@ const Table = ({
     if (searchQuery) {
       filteredCars = cars.filter(car => getCarLabel(car).toLowerCase().includes(searchQuery.toLowerCase()))
     }
-    return filteredCars.sort((a, b) => getCarLabel(a) > getCarLabel(b) ? sortOrderDesc : -1 * sortOrderDesc)
-  }, [sortOrderDesc, searchQuery])
+    return filteredCars.sort((a, b) => getCarLabel(a) > getCarLabel(b) ? sortOrder : -1 * sortOrder)
+  }, [sortOrder, searchQuery])
 
   const chooseCarHandler = (car, tariff) => {
     chooseCar(car, tariff)
@@ -30,7 +30,7 @@ const Table = ({
       <thead className="table__head">
       <tr>
         <td onClick={changeSortOrder}
-            className={`table__cell table__cell_sortable ${sortOrderDesc === -1 ? "table__cell_sortable_desc" : "table__cell_sortable_asc"}`}>Марка
+            className={`table__cell table__cell_sortable ${sortOrder === -1 ? "table__cell_sortable_desc" : "table__cell_sortable_asc"}`}>Марка
           и модель
         </td>
         {tariffs.map(tariff => (

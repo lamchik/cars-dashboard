@@ -74,7 +74,7 @@ const Table = () => {
         <CarsTable
           cars={cars}
           tariffs={tariffs}
-          sortOrderDesc={sortOrder}
+          sortOrder={sortOrder}
           changeSortOrder={changeSortOrder}
           searchQuery={search}
           chooseCar={chooseCar}
